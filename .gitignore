@@ -1,0 +1,14 @@
+.pytest_cache/
+
+api/venv/
+api/.pytest_cache/
+
+__pycache__/
+*.pyc
+
+
+.env
+*.env
+
+
+*.log
