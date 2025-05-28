@@ -2,13 +2,13 @@ import "./App.css";
 import { useState } from "react";
 import Header from "./components/Header";
 import Lista from "./components/Lista";
-import Cartao from "./components/Cartao";
 import CPF from "./assets/cpf.jpg";
 import Pessoas from "./assets/pessoas.jpg";
 import Cartao_Cred from "./assets/cartao_cred.jpg";
 import Letras from "./assets/letras.jpg";
 import CNPJ from "./assets/cnpj.jpg";
 import Corretor from "./assets/corretor.jpg";
+import Card from "./components/Card";
 
 function App() {
   const titulo_geradores = "GERADORES";
@@ -66,13 +66,24 @@ function App() {
         </div>
         <div>
           <h3>FERRAMENTAS POPULARES</h3>
-          <div style={{display: "grid", gridTemplateColumns: "auto auto auto"}}>
-            <Cartao imagem={CPF} titulo="Gerador de Número de CPF" />
-            <Cartao imagem={Pessoas} titulo="Gerador de Documentos de Pessoas" />
-            <Cartao imagem={Cartao_Cred} titulo="Gerador de Número de Cartão de Crédito" />
-            <Cartao imagem={Letras} titulo="Gerador de Letras diferentes" />
-            <Cartao imagem={CNPJ} titulo="Gerador de CNPJ" />
-            <Cartao imagem={Corretor} titulo="Corretor Ortográfico" />
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "auto auto auto",
+              gap: 15,
+              width: "fit-content",
+              marginLeft: "15px",
+            }}
+          >
+            <Card imagem={CPF} titulo="Gerador de Número de CPF" />
+            <Card imagem={Pessoas} titulo="Gerador de Documentos de Pessoas" />
+            <Card
+              imagem={Cartao_Cred}
+              titulo="Gerador de Número de Cartão de Crédito"
+            />
+            <Card imagem={Letras} titulo="Gerador de Letras diferentes" />
+            <Card imagem={CNPJ} titulo="Gerador de CNPJ" />
+            <Card imagem={Corretor} titulo="Corretor Ortográfico" />
           </div>
         </div>
       </div>
