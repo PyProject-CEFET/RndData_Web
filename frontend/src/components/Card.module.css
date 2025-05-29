@@ -45,10 +45,16 @@
 }
 
 .legenda h4 {
-  margin-top: 16px;
+  margin-top: 20px;
   margin-left: 10px;
   text-align: left;
   line-height: 1;
   user-select: none;
   cursor: default;
+  color: #525252;
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
 }

@@ -1,0 +1,43 @@
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 248px;
+  background-color: #202020;
+  color: #fff;
+}
+
+.footer p {
+  margin: 0;
+  padding-top: 10px;
+  padding-left: 20px;
+}
+
+.links a:not(:first-child) {
+  text-decoration: none;
+  color: #fff;
+  margin-left: 20px;
+}
+
+.links a:first-child {
+  text-decoration: none;
+  color: #fff;
+  margin-left: 200px;
+}
+
+.links a:hover {
+  text-decoration: underline;
+}
+
+.linha_links {
+  display: flex;
+  border-bottom: 1px solid #fff;
+  padding: 20px 20px 10px;
+}
+
+.bloco {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 30px;
+}
