@@ -1,0 +1,46 @@
+{
+  "geradores": [
+    { "id": 1, "tipo": "GERADORES", "rota": "/" },
+    { "id": 2, "tipo": "Gerador de Empresas", "rota": "gerador_de_empresas" },
+    { "id": 3, "tipo": "Gerador de Endereços", "rota": "gerador_de_enderecos" },
+    { "id": 4, "tipo": "Gerador de Pessoas", "rota": "gerador_de_pessoas" }
+  ],
+  "cards": [
+    {
+      "id": 1,
+      "imagem": "/assets/cpf.jpg",
+      "titulo": "Gerador de Número de CPF",
+      "rota": "gerador_de_cpf"
+    },
+    {
+      "id": 2,
+      "imagem": "/assets/pessoas.jpg",
+      "titulo": "Gerador de Documentos de Pessoas",
+      "rota": "gerador_de_pessoas"
+    },
+    {
+      "id": 3,
+      "imagem": "/assets/cartao_cred.jpg",
+      "titulo": "Gerador de Número de Cartão de Crédito",
+      "rota": "gerador_de_numero_cartao_credito"
+    },
+    {
+      "id": 4,
+      "imagem": "/assets/letras.jpg",
+      "titulo": "Gerador de Letras diferentes",
+      "rota": "letras_diferentes"
+    },
+    {
+      "id": 5,
+      "imagem": "/assets/cnpj.jpg",
+      "titulo": "Gerador de CNPJ",
+      "rota": "gerador_de_cnpj"
+    },
+    {
+      "id": 6,
+      "imagem": "/assets/corretor.jpg",
+      "titulo": "Corretor Ortográfico",
+      "rota": "corretor_ortografico"
+    }
+  ]
+}

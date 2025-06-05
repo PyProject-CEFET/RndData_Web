@@ -1,6 +1,14 @@
+.grupo {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  width: fit-content;
+  margin-left: 20px;
+}
+
 .box {
   width: 243.328px;
   height: 180px;
+  margin: 6px;
   display: flex;
   flex-direction: column;
   border-radius: 8px;
@@ -55,6 +63,6 @@
   cursor: pointer;
 }
 
-a {
+.grupo a {
   text-decoration: none;
 }

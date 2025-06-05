@@ -1,4 +1,13 @@
-ul {
+.lista {
+  width: fit-content;
+}
+
+.lista .ativo {
+  color: #fff;
+  background-color: #008cba;
+}
+
+.lista ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
@@ -6,15 +15,15 @@ ul {
   background-color: #fff;
 }
 
-li:not(:last-child) {
+.lista li:not(:last-child) {
   border-bottom: 1px solid #e6e6e6;
 }
 
-li:hover:not(:first-child) {
+.lista li:hover:not(:first-child) {
   background-color: #eef8ff;
 }
 
-li a {
+.lista li a {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -26,16 +35,16 @@ li a {
   color: #525252;
 }
 
-li a .seta {
+.lista li a .seta {
   color: #bfbfbf;
 }
 
-li:first-child {
+.lista li:first-child {
   color: #525252;
   font-weight: bold;
   pointer-events: none;
 }
 
-li:first-child .seta {
+.lista li:first-child .seta {
   color: #fff;
 }
