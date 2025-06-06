@@ -4,7 +4,7 @@ import Tooltip from "@mui/material/Tooltip";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 const Pessoas = () => {
-  const url = "http://localhost:5000/generate?type=person";
+  const url = "http://192.168.1.8:5000/generate?type=person";
   const [dados, setDados] = useState({
     cpf: "",
     data_nascimento: "",

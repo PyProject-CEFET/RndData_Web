@@ -26,7 +26,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Header />
-        <div style={{ display: "flex", justifyContent: "center" }}>
+        <div className="bloco">
           <Lista dados={geradores} />
           <Routes>
             <Route path="/" element={<Home />} />

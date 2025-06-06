@@ -1,21 +1,77 @@
-.header {
+.bloco {
+  display: grid;
+  grid-template-areas: ". a . b .";
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  background-color: #bedfd4;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  min-width: 100vw;
+}
+
+.logo {
+  grid-area: a;
+}
+
+.logo img {
+  width: 14em;
+}
+
+.bloco_botoes {
+  display: grid;
+  grid-area: b;
+  grid-template-areas: "a b";
+  gap: 0.5em;
+  align-items: center;
+}
+
+.bloco_botoes button {
+  background-color: #3c7d90;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1em;
+  border: none;
+  border-bottom: 2px solid #2d5e6c;
+  border-radius: 4px;
+  padding: 0.5em;
+}
+
+.bloco_botoes button:hover {
+  background-color: #2d5e6c;
+  cursor: pointer;
+}
+
+.botoes {
+  display: grid;
+  grid-template-areas: "a b";
+  gap: 0.5em;
+}
+
+.bloco_botoes form {
+  display: grid;
+  grid-template-areas: "a b";
+}
+
+.bloco_botoes form input[type="text"] {
+  align-self: start;
+  font-size: 1em;
+  padding: 0.5em;
+}
+
+.lupa {
+  border-radius: 0 4px 4px 0 !important;
+}
+
+@media only screen and (max-width: 600px) {
+  .logo {
+    grid-area: 1 / span 5;
+    justify-self: center;
+  }
+  .bloco_botoes {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    align-items: center;
-	background-color: rgb(190, 223, 212);
-	height: 70px;
-}
-
-img {
-    height: 50px;
-}
-
-:global(.MuiButton-contained) {
-    background-color: #3C7D90 !important;
-    font-weight: bold !important;
-}
-
-:global(.MuiButton-contained:not(:last-of-type)) {
-    margin-right: 10px !important;
+    flex-direction: column;
+    margin-top: 0.2em;
+    gap: 0.5em;
+    grid-area: 2 / span 5;
+    justify-self: center;
+  }
 }

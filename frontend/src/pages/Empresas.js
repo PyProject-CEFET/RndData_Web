@@ -4,7 +4,7 @@ import Tooltip from "@mui/material/Tooltip";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 const Empresas = () => {
-  const url = "http://localhost:5000/generate?type=company";
+  const url = "http://192.168.1.8:5000/generate?type=company";
   const [dados, setDados] = useState({
     cnpj: "",
     email: "",

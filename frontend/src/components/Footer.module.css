@@ -1,44 +1,85 @@
-.footer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 60px;
-  height: 248px;
+.bloco {
+  display: grid;
+  grid-template-areas:
+    ". logo . . ."
+    ". frase . links ."
+    ". linha linha linha ."
+    ". ano . . .";
+  grid-template-columns: 1fr 2fr 1fr 2fr 1fr;
+  min-width: 100vw;
   background-color: #202020;
   color: #fff;
+  padding-top: 2em;
+  padding-bottom: 2em;
 }
 
-.footer p {
-  margin: 0;
-  padding-top: 10px;
-  padding-left: 20px;
-}
-
-.links a:not(:first-child) {
+.bloco a {
   text-decoration: none;
   color: #fff;
-  margin-left: 20px;
 }
 
-.links a:first-child {
-  text-decoration: none;
-  color: #fff;
-  margin-left: 200px;
-}
-
-.links a:hover {
+.bloco a:hover {
   text-decoration: underline;
 }
 
-.linha_links {
-  display: flex;
-  border-bottom: 1px solid #fff;
-  padding: 20px 20px 10px;
+.logo {
+  grid-area: logo;
+  margin-bottom: 1em;
 }
 
-.bloco {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-top: 30px;
+.logo img {
+  width: 14em;
+}
+
+.frase {
+  grid-area: frase;
+}
+
+.links {
+  display: grid;
+  grid-template-areas: "a b c d";
+  grid-area: links;
+  gap: 1em;
+}
+
+.linha {
+  grid-area: linha;
+  border-bottom: 1px solid #fff;
+  width: 100%;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.ano {
+  grid-area: ano;
+  margin: 0;
+  font-size: small;
+}
+
+@media only screen and (max-width: 600px) {
+  .logo {
+    grid-area: 1 / span 5;
+    justify-self: center;
+  }
+  .frase {
+    grid-area: 2 / span 5;
+    justify-self: center;
+    margin-bottom: 1em;
+  }
+  .links {
+    display: grid;
+    grid-template-areas: "a b";
+    gap: 1.2em;
+    grid-area: 3 / span 5;
+    justify-self: center;
+    justify-items: center;
+  }
+  .linha {
+    grid-area: 4 / span 5;
+    justify-self: center;
+  }
+  .ano {
+    grid-area: 5 / span 5;
+    justify-self: center;
+  }
 }
