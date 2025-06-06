@@ -60,7 +60,7 @@
 }
 
 .gerador button {
-  background-color: #A6A6A6;
+  background-color: #a6a6a6;
   color: #fff;
   border: 0;
   width: fit-content;
@@ -87,9 +87,9 @@
 
 .forms label {
   text-align: right;
-  margin-top: 12px;
   margin-right: 4px;
   font-weight: bold;
+  align-content: center;
 }
 
 .forms input {
@@ -99,4 +99,26 @@
   margin-bottom: 4px;
   font-size: 1em;
   padding-left: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+  .gerador {
+    display: flex;
+    flex-direction: column;
+    max-width: 90vw;
+    margin: 0;
+    margin-top: 1em;
+    padding: 0;
+  }
+  .forms {
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+  .forms input[type="text"],
+  input[type="email"] {
+    max-width: 60vw;
+  }
+  .forms button {
+    display: none;
+  }
 }
