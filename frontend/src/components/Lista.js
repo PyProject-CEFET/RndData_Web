@@ -1,23 +1,34 @@
-import styles from "./Lista.module.css";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import { NavLink } from "react-router-dom";
+import Box from "@mui/material/Box";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import Divider from "@mui/material/Divider";
+import { Icon } from "@mui/material";
 
-const Lista = ({ dados }) => {
+const Lista = ({ dados, titulo }) => {
   return (
-    <div className={styles.lista}>
-      <ul>
-        {dados.map((item) => (
-          <li key={item.id}>
-            <NavLink
-              to={`/${item.rota}`}
-              className={({ isActive }) => (isActive ? styles.ativo : "")}
-            >
-              {item.tipo}
-              <ChevronRightIcon className={styles.seta} />
-            </NavLink>
-          </li>
-        ))}
-      </ul>
+    <div>
+      <Box sx={{ width: "100%", maxWidth: 300, bgcolor: "background.paper" }}>
+        <h3 style={{margin: 0}}>{titulo}</h3>
+        <List>
+          <Divider />
+          {dados.map((item) => (
+            <div key={item.id}>
+              <ListItem disablePadding>
+                <ListItemButton sx={{ py: 0 }}>
+                  <ListItemText primary={item.tipo} />
+                  <Icon sx={{ color: "#ccc" }}>
+                    <ArrowForwardIosIcon />
+                  </Icon>
+                </ListItemButton>
+              </ListItem>
+              <Divider />
+            </div>
+          ))}
+        </List>
+      </Box>
     </div>
   );
 };
