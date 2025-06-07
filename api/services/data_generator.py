@@ -1,6 +1,6 @@
 from faker import Faker
 from validate_docbr import CPF, CNPJ
-from api.services.utils import telefone_br
+from services.utils import telefone_br
 
 faker = Faker('pt_BR')
 cpf_generator = CPF()

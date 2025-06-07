@@ -1,4 +1,4 @@
-from api.services.data_generator import gerar_pessoa, gerar_empresa, gerar_endereco
+from services.data_generator import gerar_pessoa, gerar_empresa, gerar_endereco
 
 def test_gerar_pessoa():
     pessoa = gerar_pessoa()

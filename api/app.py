@@ -1,5 +1,5 @@
 from flask import Flask
-from api.routes.generate_routes import generate_bp
+from routes.generate_routes import generate_bp
 from flask_cors import CORS
 
 app = Flask(__name__)
