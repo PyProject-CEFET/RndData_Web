@@ -31,7 +31,7 @@ const Pessoas = () => {
       try {
         const res = await fetch(url);
         const json = await res.json();
-        setDados(json);
+        setDados(json[0]);
       } catch (error) {
         console.log(error.message);
         setError("Falha! Recarregue a página.");

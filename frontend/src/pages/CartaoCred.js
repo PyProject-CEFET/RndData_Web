@@ -1,9 +1,9 @@
 import { useState } from "react";
-import styles from "./Empresas.module.css";
+import styles from "./CartaoCred.module.css";
 import Tooltip from "@mui/material/Tooltip";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
-const Empresas = () => {
+const CartaoCred = () => {
   const [dados, setDados] = useState({
     cnpj: "",
     email: "",
@@ -12,13 +12,16 @@ const Empresas = () => {
   });
   const [error, setError] = useState(null);
   const [campoCopiado, setCampoCopiado] = useState(null);
-  const [txtButton, setTxtButton] = useState("Gerar Empresa");
+  const [txtButton, setTxtButton] = useState("Gerar Cartão");
   const [statusButton, setStatusButton] = useState(false);
-  const [opcao, setOpcao] = useState("sim");
+  const [bandeira, setBandeira] = useState("none");
   const [quantidade, setQuantidade] = useState(1);
   const [json, setJson] = useState(null);
   const url =
-    "http://192.168.1.8:5000/generate?type=company&quantity=" + quantidade;
+    "http://192.168.1.8:5000/generate?type=credit_card" +
+    (bandeira !== "none" ? "&bandeira=" + bandeira : "") +
+    "&quantity=" +
+    quantidade;
 
   const handleCopiar = (nomeDoCampo) => {
     setCampoCopiado(nomeDoCampo);
@@ -38,53 +41,34 @@ const Empresas = () => {
         console.log(error.message);
         setError("Falha! Recarregue a página.");
       }
-      setTxtButton("Gerar Empresa");
+      setTxtButton("Gerar Cartão");
       setStatusButton(false);
     };
     fetchDados();
   };
 
-  const formatCNPJ = (cnpj) => {
-    if (!cnpj) return "";
-    return cnpj.replace(
-      /^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/,
-      "$1.$2.$3/$4-$5"
-    );
+  const formatCartao = (numero) => {
+    if (!numero) return "";
+    return numero.replace(/(\d{4})(?=\d)/g, "$1 ").trim();
   };
 
-  const formatTelefone = (telefone) => {
-    if (!telefone) return "";
-    return telefone.replace(/\D/g, "");
+  const formatCVV = (cvv) => {
+    if (!cvv) return "";
+    return cvv.toString().slice(0, 3);
   };
 
-  const formatarJsonCNPJ = (arr) => {
-    return arr.map((empresa) => ({
-      ...empresa,
-      cnpj: formatCNPJ(empresa.cnpj),
-    }));
-  };
-
-  const formatarJsonTelefone = (arr) => {
-    return arr.map((empresa) => ({
-      ...empresa,
-      telefone: formatTelefone(empresa.telefone),
+  const formatarJson = (arr) => {
+    return arr.map((cartao) => ({
+      ...cartao,
+      cvv: formatCVV(cartao.cvv),
+      numero: formatCartao(cartao.numero),
     }));
   };
 
   return (
     <div className={styles.gerador}>
-      <h1>
-        Gerador de documentos de empresas
-        <br />
-        (CNPJ, E-Mail, Razão Social e Telefone)
-      </h1>
-      <p>
-        Gerador online dos documentos de uma EMPRESA.
-        <br />
-        Geramos CNPJ, E-Mail, Razão Social, e Telefone.
-        <br />
-        Basta clicar no botão "Gerar Empresa".
-      </p>
+      <h1>Gerador de Número de Cartão de Crédito</h1>
+      <p>Gerador de números de Cartão de Crédito de várias bandeiras.</p>
       <form onSubmit={handleSubmit}>
         <div
           style={{
@@ -97,25 +81,22 @@ const Empresas = () => {
           }}
         >
           <label>
-            <span>Gerar com pontuação?</span>
-            <input
-              type="radio"
-              name="opcao"
-              value={opcao}
-              defaultChecked
-              onClick={() => setOpcao("sim")}
-            />
-            <span>Sim</span>
-            <input
-              type="radio"
-              name="opcao"
-              value={opcao}
-              onClick={() => setOpcao("nao")}
-            />
-            <span>Não</span>
+            <span>Qual a Bandeira de Cartão de Crédito? </span>
+            <select
+              name="bandeira"
+              onChange={(e) => setBandeira(e.target.value)}
+              style={{ fontSize: "1em", padding: "0.2em" }}
+            >
+              <option value="none">-- Aleatório --</option>
+              <option value="mastercard">MasterCard</option>
+              <option value="visa">Visa</option>
+              <option value="diners">Diners Club</option>
+              <option value="discover">Discover</option>
+              <option value="jcb">JCB</option>
+            </select>
           </label>
           <label>
-            <span>Gerar quantas Empresas? (Máx.: 100) </span>
+            <span>Gerar quantos Cartões? (Máx.: 100) </span>
             <input
               type="number"
               step="1"
@@ -135,7 +116,7 @@ const Empresas = () => {
         {!error ? (
           <input
             className={
-              txtButton === "Gerar Empresa" ? styles.ativo : styles.inativo
+              txtButton === "Gerar Cartão" ? styles.ativo : styles.inativo
             }
             type="submit"
             value={txtButton}
@@ -146,98 +127,111 @@ const Empresas = () => {
         )}
         {quantidade === 1 ? (
           <div className={styles.forms}>
-            <label htmlFor="cnpj">CNPJ:</label>
+            <label htmlFor="bandeira">Bandeira:</label>
             <input
               type="text"
-              value={opcao === "sim" ? formatCNPJ(dados.cnpj) : dados.cnpj}
-              name="cnpj"
+              value={dados.bandeira}
+              name="bandeira"
               disabled
             />
             <Tooltip
               title="Copiado"
-              open={campoCopiado === "cnpj"}
+              open={campoCopiado === "bandeira"}
               arrow
               placement="right"
             >
               <button
                 type="button"
                 onClick={() => {
-                  opcao === "sim"
-                    ? navigator.clipboard.writeText(formatCNPJ(dados.cnpj))
-                    : navigator.clipboard.writeText(dados.cnpj);
-                  handleCopiar("cnpj");
+                  navigator.clipboard.writeText(dados.bandeira);
+                  handleCopiar("bandeira");
                 }}
               >
                 <ContentCopyIcon sx={{ fontSize: 15 }} />
               </button>
             </Tooltip>
-            <label htmlFor="email">E-Mail:</label>
-            <input type="email" value={dados.email} name="email" disabled />
+            <label htmlFor="cartao">Cartão:</label>
+            <input
+              type="text"
+              value={formatCartao(dados.numero)}
+              name="cartao"
+              disabled
+            />
             <Tooltip
               title="Copiado"
-              open={campoCopiado === "email"}
+              open={campoCopiado === "cartao"}
               arrow
               placement="right"
             >
               <button
                 type="button"
                 onClick={() => {
-                  navigator.clipboard.writeText(dados.email);
-                  handleCopiar("email");
+                  navigator.clipboard.writeText(formatCartao(dados.numero));
+                  handleCopiar("cartao");
                 }}
               >
                 <ContentCopyIcon sx={{ fontSize: 15 }} />
               </button>
             </Tooltip>
-            <label htmlFor="razao_social">Razão Social:</label>
+            <label htmlFor="validade">Validade:</label>
             <input
               type="text"
-              value={dados.razao_social}
-              name="razao_social"
+              value={dados.validade}
+              name="validade"
               disabled
             />
             <Tooltip
               title="Copiado"
-              open={campoCopiado === "razao_social"}
+              open={campoCopiado === "validade"}
               arrow
               placement="right"
             >
               <button
                 type="button"
                 onClick={() => {
-                  navigator.clipboard.writeText(dados.razao_social);
-                  handleCopiar("razao_social");
+                  navigator.clipboard.writeText(dados.validade);
+                  handleCopiar("validade");
                 }}
               >
                 <ContentCopyIcon sx={{ fontSize: 15 }} />
               </button>
             </Tooltip>
-            <label htmlFor="telefone">Telefone:</label>
+            <label htmlFor="cvv">CVV:</label>
             <input
               type="text"
-              value={
-                opcao === "sim"
-                  ? dados.telefone
-                  : formatTelefone(dados.telefone)
-              }
-              name="telefone"
+              value={formatCVV(dados.cvv)}
+              name="cvv"
               disabled
             />
             <Tooltip
               title="Copiado"
-              open={campoCopiado === "telefone"}
+              open={campoCopiado === "cvv"}
               arrow
               placement="right"
             >
               <button
                 type="button"
                 onClick={() => {
-                  opcao === "sim"
-                    ? navigator.clipboard.writeText(dados.telefone)
-                    : navigator.clipboard.writeText(
-                        formatTelefone(dados.telefone)
-                      );
-                  handleCopiar("telefone");
+                  navigator.clipboard.writeText(formatCVV(dados.cvv));
+                  handleCopiar("cvv");
+                }}
+              >
+                <ContentCopyIcon sx={{ fontSize: 15 }} />
+              </button>
+            </Tooltip>
+            <label htmlFor="titular">Titular:</label>
+            <input type="text" value={dados.titular} name="titular" disabled />
+            <Tooltip
+              title="Copiado"
+              open={campoCopiado === "titular"}
+              arrow
+              placement="right"
+            >
+              <button
+                type="button"
+                onClick={() => {
+                  navigator.clipboard.writeText(dados.titular);
+                  handleCopiar("titular");
                 }}
               >
                 <ContentCopyIcon sx={{ fontSize: 15 }} />
@@ -259,15 +253,7 @@ const Empresas = () => {
                 padding: "0.5em",
               }}
               value={
-                json === null
-                  ? ""
-                  : JSON.stringify(
-                      opcao === "sim"
-                        ? formatarJsonCNPJ(json)
-                        : formatarJsonTelefone(json),
-                      null,
-                      2
-                    )
+                json === null ? "" : JSON.stringify(formatarJson(json), null, 2)
               }
               disabled
             ></textarea>
@@ -275,18 +261,16 @@ const Empresas = () => {
         )}
       </form>
       <p style={{ color: "#525252" }}>
-        IMPORTANTE: Nosso gerador online de Empresas tem como intenção ajudar
-        estudantes, programadores, analistas e testadores a gerar todos os
-        documentos necessários para uma empresa, normalmente necessários para
-        testar seus softwares em desenvolvimento.
-        <br />A má utilização dos dados aqui gerados é de total responsabilidade
-        do usuário.
-        <br />
-        Os números são gerados de forma aleatória, respeitando as regras de
-        criação de cada documento.
+        IMPORTANTE: Nosso gerador online de Cartão de Crédito tem como intenção
+        ajudar estudantes, programadores, analistas e testadores a gerar Cartões
+        válidos. Normalmente necessários parar testar seus softwares em
+        desenvolvimento. Esses dados não servem para fazer compras na internet.
+        A má utilização dos dados aqui gerados é de total responsabilidade do
+        usuário. Os números são gerados de forma aleatória, respeitando as
+        regras de criação de cada documento.
       </p>
     </div>
   );
 };
 
-export default Empresas;
+export default CartaoCred;

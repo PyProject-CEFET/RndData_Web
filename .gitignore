@@ -1,16 +1,14 @@
 api/venv/
 api/.pytest_cache/
+api/data/cep.zip
 
 __pycache__/
 *.pyc
 
-
 .env
 *.env
 
-
-front/node_modules/
-front/build/
-
+frontend/node_modules/
+frontend/build/
 
 *.log

@@ -16,16 +16,16 @@ const Header = () => {
         />
       </NavLink>
       <div className={styles.bloco_botoes}>
-        <div className={styles.botoes}>
+        {/* <div className={styles.botoes}>
           <button>COMPUTAÇÃO</button>
           <button>MATEMÁTICA</button>
-        </div>
-        <form onSubmit={handleSubmit}>
+        </div> */}
+        {/* <form onSubmit={handleSubmit}>
           <input type="text" name="buscar" placeholder="Buscar" />
           <button className={styles.lupa} type="submit">
             <SearchIcon sx={{ width: 20, height: 20, display: "block" }} />
           </button>
-        </form>
+        </form> */}
       </div>
     </div>
   );
