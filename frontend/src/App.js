@@ -31,7 +31,10 @@ function App() {
           <Lista dados={geradores} />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/gerador_de_numero_cartao_credito" element={<CartaoCred />} />
+            <Route
+              path="/gerador_de_numero_cartao_credito"
+              element={<CartaoCred />}
+            />
             <Route path="/gerador_de_empresas" element={<Empresas />} />
             <Route path="/gerador_de_enderecos" element={<Enderecos />} />
             <Route path="/gerador_de_pessoas" element={<Pessoas />} />

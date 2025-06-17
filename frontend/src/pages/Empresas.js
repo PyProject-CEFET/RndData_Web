@@ -18,7 +18,7 @@ const Empresas = () => {
   const [quantidade, setQuantidade] = useState(1);
   const [json, setJson] = useState(null);
   const url =
-    "http://192.168.1.8:5000/generate?type=company&quantity=" + quantidade;
+    "http://localhost:5000/generate?type=company&quantity=" + quantidade;
 
   const handleCopiar = (nomeDoCampo) => {
     setCampoCopiado(nomeDoCampo);

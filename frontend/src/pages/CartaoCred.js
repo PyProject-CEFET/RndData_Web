@@ -5,10 +5,11 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 const CartaoCred = () => {
   const [dados, setDados] = useState({
-    cnpj: "",
-    email: "",
-    razao_social: "",
-    telefone: "",
+    bandeira: "",
+    cvv: "",
+    numero: "",
+    titular: "",
+    validade: "",
   });
   const [error, setError] = useState(null);
   const [campoCopiado, setCampoCopiado] = useState(null);
@@ -18,7 +19,7 @@ const CartaoCred = () => {
   const [quantidade, setQuantidade] = useState(1);
   const [json, setJson] = useState(null);
   const url =
-    "http://192.168.1.8:5000/generate?type=credit_card" +
+    "http://localhost:5000/generate?type=credit_card" +
     (bandeira !== "none" ? "&bandeira=" + bandeira : "") +
     "&quantity=" +
     quantidade;

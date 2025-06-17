@@ -1,7 +1,11 @@
 {
   "geradores": [
     { "id": 1, "tipo": "GERADORES", "rota": "/" },
-    { "id": 2, "tipo": "Gerador de Cartão de Crédito", "rota": "gerador_de_numero_cartao_credito" },
+    {
+      "id": 2,
+      "tipo": "Gerador de Cartão de Crédito",
+      "rota": "gerador_de_numero_cartao_credito"
+    },
     { "id": 3, "tipo": "Gerador de Empresas", "rota": "gerador_de_empresas" },
     { "id": 4, "tipo": "Gerador de Endereços", "rota": "gerador_de_enderecos" },
     { "id": 5, "tipo": "Gerador de Pessoas", "rota": "gerador_de_pessoas" }
@@ -31,5 +35,34 @@
       "titulo": "Gerador de documentos de pessoas",
       "rota": "gerador_de_pessoas"
     }
+  ],
+  "estados": [
+    { "id": 1, "value": "AC", "estado": "AC" },
+    { "id": 2, "value": "AL", "estado": "AL" },
+    { "id": 3, "value": "AP", "estado": "AP" },
+    { "id": 4, "value": "AM", "estado": "AM" },
+    { "id": 5, "value": "BA", "estado": "BA" },
+    { "id": 6, "value": "CE", "estado": "CE" },
+    { "id": 7, "value": "DF", "estado": "DF" },
+    { "id": 8, "value": "ES", "estado": "ES" },
+    { "id": 9, "value": "GO", "estado": "GO" },
+    { "id": 10, "value": "MA", "estado": "MA" },
+    { "id": 11, "value": "MT", "estado": "MT" },
+    { "id": 12, "value": "MS", "estado": "MS" },
+    { "id": 13, "value": "MG", "estado": "MG" },
+    { "id": 14, "value": "PA", "estado": "PA" },
+    { "id": 15, "value": "PB", "estado": "PB" },
+    { "id": 16, "value": "PR", "estado": "PR" },
+    { "id": 17, "value": "PE", "estado": "PE" },
+    { "id": 18, "value": "PI", "estado": "PI" },
+    { "id": 19, "value": "RJ", "estado": "RJ" },
+    { "id": 20, "value": "RN", "estado": "RN" },
+    { "id": 21, "value": "RS", "estado": "RS" },
+    { "id": 22, "value": "RO", "estado": "RO" },
+    { "id": 23, "value": "RR", "estado": "RR" },
+    { "id": 24, "value": "SC", "estado": "SC" },
+    { "id": 25, "value": "SP", "estado": "SP" },
+    { "id": 26, "value": "SE", "estado": "SE" },
+    { "id": 27, "value": "TO", "estado": "TO" }
   ]
 }
