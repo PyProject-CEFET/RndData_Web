@@ -9,8 +9,9 @@
     { "id": 3, "tipo": "Gerador de Empresas", "rota": "gerador_de_empresas" },
     { "id": 4, "tipo": "Gerador de Endereços", "rota": "gerador_de_enderecos" },
     { "id": 5, "tipo": "Gerador de Pessoas", "rota": "gerador_de_pessoas" },
-    { "id": 6, "tipo": "Gerador de Senha", "rota": "gerador_de_senha" },
-    { "id": 7, "tipo": "Sorteador de números", "rota": "sorteador" }
+    { "id": 6, "tipo": "Gerador de RENAVAM", "rota": "gerador_de_renavam" },
+    { "id": 7, "tipo": "Gerador de Senha", "rota": "gerador_de_senha" },
+    { "id": 8, "tipo": "Sorteador de números", "rota": "sorteador" }
   ],
   "cards": [
     {
@@ -93,6 +94,9 @@
     { "id": 3, "nome": "nascimento", "value": "data_nascimento", "campo": "Nascimento", "tipo": "text", "format": 0 },
     { "id": 4, "nome": "email", "value": "email", "campo": "E-Mail", "tipo": "email", "format": 0 },
     { "id": 5, "nome": "telefone", "value": "telefone", "campo": "Telefone", "tipo": "text", "format": 1 }
+  ],
+  "renavam": [
+    { "id": 1, "nome": "renavam", "value": "renavam", "campo": "RENAVAM", "tipo": "text" }
   ],
   "senhas": [
     { "id": 1, "nome": "senha", "value": "senha", "campo": "Senha", "tipo": "text" }
