@@ -14,6 +14,8 @@ import CartaoCred from "./pages/CartaoCred";
 import Empresas from "./pages/Empresas";
 import Enderecos from "./pages/Enderecos";
 import Pessoas from "./pages/Pessoas";
+import Senhas from "./pages/Senhas";
+import Sorteador from "./pages/Sorteador";
 
 // Componentes
 import Header from "./components/Header";
@@ -38,6 +40,8 @@ function App() {
             <Route path="/gerador_de_empresas" element={<Empresas />} />
             <Route path="/gerador_de_enderecos" element={<Enderecos />} />
             <Route path="/gerador_de_pessoas" element={<Pessoas />} />
+            <Route path="/gerador_de_senha" element={<Senhas />} />
+            <Route path="/sorteador" element={<Sorteador />} />
           </Routes>
         </div>
         <Footer />

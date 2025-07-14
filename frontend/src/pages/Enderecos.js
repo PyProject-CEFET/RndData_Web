@@ -1,20 +1,19 @@
 import { useState } from "react";
-import styles from "./Enderecos.module.css";
 import Tooltip from "@mui/material/Tooltip";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import lista from "../data/db.json";
 
 const Enderecos = () => {
   const [dados, setDados] = useState({
-    bairro: "",
-    cep: "",
-    cidade: "",
     estado: "",
+    cidade: "",
+    bairro: "",
     rua: "",
+    cep: "",
   });
   const [error, setError] = useState(null);
   const [campoCopiado, setCampoCopiado] = useState(null);
-  const [txtButton, setTxtButton] = useState("Gerar Empresa");
+  const [txtButton, setTxtButton] = useState("Gerar Endereço");
   const [statusButton, setStatusButton] = useState(false);
   const [estados] = useState(lista.estados);
   const [estado, setEstado] = useState("none");
@@ -51,8 +50,12 @@ const Enderecos = () => {
   };
 
   return (
-    <div className={styles.gerador}>
-      <h1>Gerador de Endereços</h1>
+    <div className="pagina">
+      <h1>
+        Gerador de endereços
+        <br />
+        (Cidade, Bairro, CEP, etc)
+      </h1>
       <p>
         Gerador online de ENDEREÇOS.
         <br />
@@ -61,16 +64,7 @@ const Enderecos = () => {
         Basta clicar no botão "Gerar Endereço".
       </p>
       <form onSubmit={handleSubmit}>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "0.5em",
-            marginTop: "1em",
-            marginLeft: "1em",
-            alignSelf: "flex-start",
-          }}
-        >
+        <div className="pontuacao">
           <label>
             <span>Qual o Estado do endereço? </span>
             <select
@@ -106,9 +100,7 @@ const Enderecos = () => {
         </div>
         {!error ? (
           <input
-            className={
-              txtButton === "Gerar Endereço" ? styles.ativo : styles.inativo
-            }
+            className={txtButton === "Gerar Endereço" ? "ativo" : "inativo"}
             type="submit"
             value={txtButton}
             disabled={statusButton}
@@ -117,113 +109,43 @@ const Enderecos = () => {
           <h2 style={{ marginTop: "50px", color: "red" }}>{error}</h2>
         )}
         {quantidade === 1 ? (
-          <div className={styles.forms}>
-            <label htmlFor="estado">Estado:</label>
-            <input type="text" value={dados.estado} name="estado" disabled />
-            <Tooltip
-              title="Copiado"
-              open={campoCopiado === "estado"}
-              arrow
-              placement="right"
-            >
-              <button
-                type="button"
-                onClick={() => {
-                  navigator.clipboard.writeText(dados.estado);
-                  handleCopiar("estado");
-                }}
-              >
-                <ContentCopyIcon sx={{ fontSize: 15 }} />
-              </button>
-            </Tooltip>
-            <label htmlFor="cidade">Cidade:</label>
-            <input type="text" value={dados.cidade} name="cidade" disabled />
-            <Tooltip
-              title="Copiado"
-              open={campoCopiado === "cidade"}
-              arrow
-              placement="right"
-            >
-              <button
-                type="button"
-                onClick={() => {
-                  navigator.clipboard.writeText(dados.cidade);
-                  handleCopiar("cidade");
-                }}
-              >
-                <ContentCopyIcon sx={{ fontSize: 15 }} />
-              </button>
-            </Tooltip>
-            <label htmlFor="bairro">Bairro:</label>
-            <input type="text" value={dados.bairro} name="bairro" disabled />
-            <Tooltip
-              title="Copiado"
-              open={campoCopiado === "bairro"}
-              arrow
-              placement="right"
-            >
-              <button
-                type="button"
-                onClick={() => {
-                  navigator.clipboard.writeText(dados.bairro);
-                  handleCopiar("bairro");
-                }}
-              >
-                <ContentCopyIcon sx={{ fontSize: 15 }} />
-              </button>
-            </Tooltip>
-
-            <label htmlFor="rua">Rua:</label>
-            <input type="text" value={dados.rua} name="rua" disabled />
-            <Tooltip
-              title="Copiado"
-              open={campoCopiado === "rua"}
-              arrow
-              placement="right"
-            >
-              <button
-                type="button"
-                onClick={() => {
-                  navigator.clipboard.writeText(dados.rua);
-                  handleCopiar("rua");
-                }}
-              >
-                <ContentCopyIcon sx={{ fontSize: 15 }} />
-              </button>
-            </Tooltip>
-            <label htmlFor="cep">CEP:</label>
-            <input type="text" value={dados.cep} name="cep" disabled />
-            <Tooltip
-              title="Copiado"
-              open={campoCopiado === "cep"}
-              arrow
-              placement="right"
-            >
-              <button
-                type="button"
-                onClick={() => {
-                  navigator.clipboard.writeText(dados.cep);
-                  handleCopiar("cep");
-                }}
-              >
-                <ContentCopyIcon sx={{ fontSize: 15 }} />
-              </button>
-            </Tooltip>
+          <div className="forms">
+            {lista.enderecos.map((item) => (
+              <>
+                <label key={item.id} htmlFor={item.nome}>
+                  {item.campo}:
+                </label>
+                <input
+                  type={item.tipo}
+                  value={dados[item.value]}
+                  name={item.nome}
+                  disabled
+                />
+                <Tooltip
+                  title="Copiado"
+                  open={campoCopiado === item.nome}
+                  arrow
+                  placement="right"
+                >
+                  <button
+                    type="button"
+                    onClick={() => {
+                      navigator.clipboard.writeText(dados[item.value]);
+                      handleCopiar(item.nome);
+                    }}
+                  >
+                    <ContentCopyIcon sx={{ fontSize: 15 }} />
+                  </button>
+                </Tooltip>
+              </>
+            ))}
           </div>
         ) : (
           <div>
             <h4 style={{ color: "#737373" }}>Resposta JSON:</h4>
             <textarea
+              className="respJSON"
               name="retorno"
-              style={{
-                width: "560px",
-                minHeight: "280px",
-                resize: "vertical",
-                marginBottom: "1em",
-                backgroundColor: "#EAF9FF",
-                fontSize: "1.2em",
-                padding: "0.5em",
-              }}
               value={json === null ? "" : JSON.stringify(json, null, 2)}
               disabled
             ></textarea>
@@ -232,9 +154,8 @@ const Enderecos = () => {
       </form>
       <p style={{ color: "#525252" }}>
         IMPORTANTE: Nosso gerador online de Endereços tem como intenção ajudar
-        estudantes, programadores, analistas e testadores a gerar todos os
-        documentos necessários para uma empresa, normalmente necessários para
-        testar seus softwares em desenvolvimento.
+        estudantes, programadores, analistas e testadores a gerar documentos.
+        Normalmente necessários parar testar seus softwares em desenvolvimento.
         <br />A má utilização dos dados aqui gerados é de total responsabilidade
         do usuário.
         <br />

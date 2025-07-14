@@ -3,24 +3,21 @@ import Tooltip from "@mui/material/Tooltip";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import campo from "../data/db.json";
 
-const CartaoCred = () => {
-  const [dados, setDados] = useState({
-    bandeira: "",
-    numero: "",
-    validade: "",
-    cvv: "",
-    titular: "",
-  });
+const Sorteador = () => {
+  const [dados, setDados] = useState("");
   const [error, setError] = useState(null);
   const [campoCopiado, setCampoCopiado] = useState(null);
-  const [txtButton, setTxtButton] = useState("Gerar Cartão");
+  const [txtButton, setTxtButton] = useState("Sortear");
   const [statusButton, setStatusButton] = useState(false);
-  const [bandeira, setBandeira] = useState("none");
   const [quantidade, setQuantidade] = useState(1);
+  const [minimo, setMinimo] = useState(0);
+  const [maximo, setMaximo] = useState(10);
   const [json, setJson] = useState(null);
   const url =
-    "http://localhost:5000/generate?type=credit_card" +
-    (bandeira !== "none" ? "&bandeira=" + bandeira : "") +
+    "http://localhost:5000/generate?type=number&minimo=" +
+    minimo +
+    "&maximo=" +
+    maximo +
     "&quantity=" +
     quantidade;
 
@@ -42,58 +39,27 @@ const CartaoCred = () => {
         console.log(error.message);
         setError("Falha! Recarregue a página.");
       }
-      setTxtButton("Gerar Cartão");
+      setTxtButton("Sortear");
       setStatusButton(false);
     };
     fetchDados();
   };
 
-  const formatCartao = (numero) => {
-    if (!numero) return "";
-    return numero.replace(/(\d{4})(?=\d)/g, "$1 ").trim();
-  };
-
-  const formatCVV = (cvv) => {
-    if (!cvv) return "";
-    return cvv.toString().slice(0, 3);
-  };
-
-  const formatarJson = (arr) => {
-    return arr.map((cartao) => ({
-      ...cartao,
-      cvv: formatCVV(cartao.cvv),
-      numero: formatCartao(cartao.numero),
-    }));
-  };
-
-  const format = {
-    cartao: formatCartao,
-    cvv: formatCVV,
-  };
-
   return (
     <div className="pagina">
-      <h1>Gerador de Número de Cartão de Crédito</h1>
-      <p>Gerador de números de Cartão de Crédito de várias bandeiras.</p>
+      <h1>Sorteador de números aleatórios</h1>
+      <p>
+        Sorteador de números online e gratuito.
+        <br />
+        Selecione o intervalo e clique em sortear número.
+        <br />
+        Pode usar também para fazer sorteios no Facebook, Instagram e outras
+        redes sociais.
+      </p>
       <form onSubmit={handleSubmit}>
         <div className="pontuacao">
           <label>
-            <span>Qual a Bandeira de Cartão de Crédito? </span>
-            <select
-              name="bandeira"
-              onChange={(e) => setBandeira(e.target.value)}
-              style={{ fontSize: "1em", padding: "0.2em" }}
-            >
-              <option value="none">-- Aleatório --</option>
-              <option value="mastercard">MasterCard</option>
-              <option value="visa">Visa</option>
-              <option value="diners">Diners Club</option>
-              <option value="discover">Discover</option>
-              <option value="jcb">JCB</option>
-            </select>
-          </label>
-          <label>
-            <span>Gerar quantos Cartões? (Máx.: 100) </span>
+            <span>Sortear </span>
             <input
               type="number"
               step="1"
@@ -108,11 +74,41 @@ const CartaoCred = () => {
               max={100}
               style={{ fontSize: "1em", width: "3em", padding: "0.2em" }}
             />
+            <span> números entre </span>
+            <input
+              type="number"
+              step="1"
+              defaultValue={minimo}
+              onChange={(e) => {
+                setMinimo(Number(e.target.value));
+                setDados("");
+                setJson(null);
+              }}
+              pattern="\d*"
+              min={0}
+              max={maximo - 1}
+              style={{ fontSize: "1em", width: "3em", padding: "0.2em" }}
+            />
+            <span> e </span>
+            <input
+              type="number"
+              step="1"
+              defaultValue={maximo}
+              onChange={(e) => {
+                setMaximo(Number(e.target.value));
+                setDados("");
+                setJson(null);
+              }}
+              pattern="\d*"
+              min={minimo + 1}
+              style={{ fontSize: "1em", width: "3em", padding: "0.2em" }}
+            />
+            <span> .</span>
           </label>
         </div>
         {!error ? (
           <input
-            className={txtButton === "Gerar Cartão" ? "ativo" : "inativo"}
+            className={txtButton === "Sortear" ? "ativo" : "inativo"}
             type="submit"
             value={txtButton}
             disabled={statusButton}
@@ -122,18 +118,14 @@ const CartaoCred = () => {
         )}
         {quantidade === 1 ? (
           <div className="forms">
-            {campo.cartoes.map((item) => (
+            {campo.numeros.map((item) => (
               <>
                 <label key={item.id} htmlFor={item.nome}>
                   {item.campo}:
                 </label>
                 <input
                   type={item.tipo}
-                  value={
-                    item.format === 1
-                      ? format[item.nome](dados[item.value])
-                      : dados[item.value]
-                  }
+                  value={dados}
                   name={item.nome}
                   disabled
                 />
@@ -146,11 +138,7 @@ const CartaoCred = () => {
                   <button
                     type="button"
                     onClick={() => {
-                      item.format === 1
-                        ? navigator.clipboard.writeText(
-                            format[item.nome](dados[item.value])
-                          )
-                        : navigator.clipboard.writeText(dados[item.value]);
+                      navigator.clipboard.writeText(dados);
                       handleCopiar(item.nome);
                     }}
                   >
@@ -166,27 +154,20 @@ const CartaoCred = () => {
             <textarea
               className="respJSON"
               name="retorno"
-              value={
-                json === null ? "" : JSON.stringify(formatarJson(json), null, 2)
-              }
+              value={json === null ? "" : JSON.stringify(json, null, 2)}
               disabled
             ></textarea>
           </div>
         )}
       </form>
       <p style={{ color: "#525252" }}>
-        IMPORTANTE: Nosso gerador online de Cartões de Crédito tem como intenção
-        ajudar estudantes, programadores, analistas e testadores a gerar
-        documentos. Normalmente necessários parar testar seus softwares em
-        desenvolvimento.
-        <br />A má utilização dos dados aqui gerados é de total responsabilidade
-        do usuário.
-        <br />
-        Os números são gerados de forma aleatória, respeitando as regras de
-        criação de cada documento.
+        Sorteador de números online é uma ferramenta que gera números aleatórios
+        dentro de um intervalo especificado. Ele é utilizado para diversas
+        finalidades, como sorteios, loterias, brincadeiras, jogos, e qualquer
+        outra situação que exija a seleção aleatória de números.
       </p>
     </div>
   );
 };
 
-export default CartaoCred;
+export default Sorteador;

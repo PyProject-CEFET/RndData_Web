@@ -1,13 +1,13 @@
 import { useState } from "react";
-import styles from "./Empresas.module.css";
 import Tooltip from "@mui/material/Tooltip";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import campo from "../data/db.json";
 
 const Empresas = () => {
   const [dados, setDados] = useState({
+    razao_social: "",
     cnpj: "",
     email: "",
-    razao_social: "",
     telefone: "",
   });
   const [error, setError] = useState(null);
@@ -71,31 +71,27 @@ const Empresas = () => {
     }));
   };
 
+  const format = {
+    cnpj: formatCNPJ,
+    telefone: formatTelefone,
+  };
+
   return (
-    <div className={styles.gerador}>
+    <div className="pagina">
       <h1>
         Gerador de documentos de empresas
         <br />
-        (CNPJ, E-Mail, Razão Social e Telefone)
+        (CNPJ, Razão Social, etc)
       </h1>
       <p>
         Gerador online dos documentos de uma EMPRESA.
         <br />
-        Geramos CNPJ, E-Mail, Razão Social, e Telefone.
+        Geramos Razão Social, CNPJ, E-Mail, e Telefone.
         <br />
         Basta clicar no botão "Gerar Empresa".
       </p>
       <form onSubmit={handleSubmit}>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "0.5em",
-            marginTop: "1em",
-            marginLeft: "1em",
-            alignSelf: "flex-start",
-          }}
-        >
+        <div className="pontuacao">
           <label>
             <span>Gerar com pontuação?</span>
             <input
@@ -134,9 +130,7 @@ const Empresas = () => {
         </div>
         {!error ? (
           <input
-            className={
-              txtButton === "Gerar Empresa" ? styles.ativo : styles.inativo
-            }
+            className={txtButton === "Gerar Empresa" ? "ativo" : "inativo"}
             type="submit"
             value={txtButton}
             disabled={statusButton}
@@ -145,119 +139,61 @@ const Empresas = () => {
           <h2 style={{ marginTop: "50px", color: "red" }}>{error}</h2>
         )}
         {quantidade === 1 ? (
-          <div className={styles.forms}>
-            <label htmlFor="cnpj">CNPJ:</label>
-            <input
-              type="text"
-              value={opcao === "sim" ? formatCNPJ(dados.cnpj) : dados.cnpj}
-              name="cnpj"
-              disabled
-            />
-            <Tooltip
-              title="Copiado"
-              open={campoCopiado === "cnpj"}
-              arrow
-              placement="right"
-            >
-              <button
-                type="button"
-                onClick={() => {
-                  opcao === "sim"
-                    ? navigator.clipboard.writeText(formatCNPJ(dados.cnpj))
-                    : navigator.clipboard.writeText(dados.cnpj);
-                  handleCopiar("cnpj");
-                }}
-              >
-                <ContentCopyIcon sx={{ fontSize: 15 }} />
-              </button>
-            </Tooltip>
-            <label htmlFor="email">E-Mail:</label>
-            <input type="email" value={dados.email} name="email" disabled />
-            <Tooltip
-              title="Copiado"
-              open={campoCopiado === "email"}
-              arrow
-              placement="right"
-            >
-              <button
-                type="button"
-                onClick={() => {
-                  navigator.clipboard.writeText(dados.email);
-                  handleCopiar("email");
-                }}
-              >
-                <ContentCopyIcon sx={{ fontSize: 15 }} />
-              </button>
-            </Tooltip>
-            <label htmlFor="razao_social">Razão Social:</label>
-            <input
-              type="text"
-              value={dados.razao_social}
-              name="razao_social"
-              disabled
-            />
-            <Tooltip
-              title="Copiado"
-              open={campoCopiado === "razao_social"}
-              arrow
-              placement="right"
-            >
-              <button
-                type="button"
-                onClick={() => {
-                  navigator.clipboard.writeText(dados.razao_social);
-                  handleCopiar("razao_social");
-                }}
-              >
-                <ContentCopyIcon sx={{ fontSize: 15 }} />
-              </button>
-            </Tooltip>
-            <label htmlFor="telefone">Telefone:</label>
-            <input
-              type="text"
-              value={
-                opcao === "sim"
-                  ? dados.telefone
-                  : formatTelefone(dados.telefone)
-              }
-              name="telefone"
-              disabled
-            />
-            <Tooltip
-              title="Copiado"
-              open={campoCopiado === "telefone"}
-              arrow
-              placement="right"
-            >
-              <button
-                type="button"
-                onClick={() => {
-                  opcao === "sim"
-                    ? navigator.clipboard.writeText(dados.telefone)
-                    : navigator.clipboard.writeText(
-                        formatTelefone(dados.telefone)
-                      );
-                  handleCopiar("telefone");
-                }}
-              >
-                <ContentCopyIcon sx={{ fontSize: 15 }} />
-              </button>
-            </Tooltip>
+          <div className="forms">
+            {campo.empresas.map((item) => (
+              <>
+                <label key={item.id} htmlFor={item.nome}>
+                  {item.campo}:
+                </label>
+                <input
+                  type={item.tipo}
+                  value={
+                    (opcao === "sim" &&
+                      item.format === 1 &&
+                      item.nome !== "telefone") ||
+                    (opcao === "nao" &&
+                      item.format === 1 &&
+                      item.nome === "telefone")
+                      ? format[item.nome](dados[item.value])
+                      : dados[item.value]
+                  }
+                  name={item.nome}
+                  disabled
+                />
+                <Tooltip
+                  title="Copiado"
+                  open={campoCopiado === item.nome}
+                  arrow
+                  placement="right"
+                >
+                  <button
+                    type="button"
+                    onClick={() => {
+                      (opcao === "sim" &&
+                        item.format === 1 &&
+                        item.nome !== "telefone") ||
+                      (opcao === "nao" &&
+                        item.format === 1 &&
+                        item.nome === "telefone")
+                        ? navigator.clipboard.writeText(
+                            format[item.nome](dados[item.value])
+                          )
+                        : navigator.clipboard.writeText(dados[item.value]);
+                      handleCopiar(item.nome);
+                    }}
+                  >
+                    <ContentCopyIcon sx={{ fontSize: 15 }} />
+                  </button>
+                </Tooltip>
+              </>
+            ))}
           </div>
         ) : (
           <div>
             <h4 style={{ color: "#737373" }}>Resposta JSON:</h4>
             <textarea
+              className="respJSON"
               name="retorno"
-              style={{
-                width: "560px",
-                minHeight: "280px",
-                resize: "vertical",
-                marginBottom: "1em",
-                backgroundColor: "#EAF9FF",
-                fontSize: "1.2em",
-                padding: "0.5em",
-              }}
               value={
                 json === null
                   ? ""
@@ -276,9 +212,8 @@ const Empresas = () => {
       </form>
       <p style={{ color: "#525252" }}>
         IMPORTANTE: Nosso gerador online de Empresas tem como intenção ajudar
-        estudantes, programadores, analistas e testadores a gerar todos os
-        documentos necessários para uma empresa, normalmente necessários para
-        testar seus softwares em desenvolvimento.
+        estudantes, programadores, analistas e testadores a gerar documentos.
+        Normalmente necessários parar testar seus softwares em desenvolvimento.
         <br />A má utilização dos dados aqui gerados é de total responsabilidade
         do usuário.
         <br />

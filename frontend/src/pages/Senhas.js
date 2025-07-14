@@ -3,26 +3,27 @@ import Tooltip from "@mui/material/Tooltip";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import campo from "../data/db.json";
 
-const CartaoCred = () => {
-  const [dados, setDados] = useState({
-    bandeira: "",
-    numero: "",
-    validade: "",
-    cvv: "",
-    titular: "",
-  });
+const Senhas = () => {
+  const [dados, setDados] = useState("");
   const [error, setError] = useState(null);
   const [campoCopiado, setCampoCopiado] = useState(null);
-  const [txtButton, setTxtButton] = useState("Gerar Cartão");
+  const [txtButton, setTxtButton] = useState("Gerar Senha");
   const [statusButton, setStatusButton] = useState(false);
-  const [bandeira, setBandeira] = useState("none");
+  const [tamanho, setTamanho] = useState(10);
+  const [maiusculas, setMaiusculas] = useState(true);
+  const [minusculas, setMinusculas] = useState(true);
+  const [numeros, setNumeros] = useState(true);
+  const [caracteres, setCaracteres] = useState(false);
   const [quantidade, setQuantidade] = useState(1);
   const [json, setJson] = useState(null);
   const url =
-    "http://localhost:5000/generate?type=credit_card" +
-    (bandeira !== "none" ? "&bandeira=" + bandeira : "") +
-    "&quantity=" +
-    quantidade;
+    "http://localhost:5000/generate?type=password&passwordTamanho=" + tamanho
+    + "&quantity=" + quantidade
+    + "&passwordMaiuscula=" + maiusculas
+    + "&passwordMinuscula=" + minusculas
+    + "&passwordNumeros=" + numeros
+    + "&passwordEspeciais=" + caracteres
+    + "&quantity=" + quantidade;
 
   const handleCopiar = (nomeDoCampo) => {
     setCampoCopiado(nomeDoCampo);
@@ -42,58 +43,80 @@ const CartaoCred = () => {
         console.log(error.message);
         setError("Falha! Recarregue a página.");
       }
-      setTxtButton("Gerar Cartão");
+      setTxtButton("Gerar Senha");
       setStatusButton(false);
     };
     fetchDados();
   };
 
-  const formatCartao = (numero) => {
-    if (!numero) return "";
-    return numero.replace(/(\d{4})(?=\d)/g, "$1 ").trim();
-  };
-
-  const formatCVV = (cvv) => {
-    if (!cvv) return "";
-    return cvv.toString().slice(0, 3);
-  };
-
-  const formatarJson = (arr) => {
-    return arr.map((cartao) => ({
-      ...cartao,
-      cvv: formatCVV(cartao.cvv),
-      numero: formatCartao(cartao.numero),
-    }));
-  };
-
-  const format = {
-    cartao: formatCartao,
-    cvv: formatCVV,
-  };
-
   return (
     <div className="pagina">
-      <h1>Gerador de Número de Cartão de Crédito</h1>
-      <p>Gerador de números de Cartão de Crédito de várias bandeiras.</p>
+      <h1>Gerador de Senhas</h1>
+      <p>
+        Ferramenta online para gerar senhas fortes e seguras.
+        <br />
+        O gerador de senhas permite criar uma senha aleatória com diversas
+        opções.
+        <br />
+        Selecione as opções desejadas, clique em "Gerar Senha" e confira a senha
+        gerada abaixo do botão.
+      </p>
       <form onSubmit={handleSubmit}>
         <div className="pontuacao">
           <label>
-            <span>Qual a Bandeira de Cartão de Crédito? </span>
-            <select
-              name="bandeira"
-              onChange={(e) => setBandeira(e.target.value)}
-              style={{ fontSize: "1em", padding: "0.2em" }}
-            >
-              <option value="none">-- Aleatório --</option>
-              <option value="mastercard">MasterCard</option>
-              <option value="visa">Visa</option>
-              <option value="diners">Diners Club</option>
-              <option value="discover">Discover</option>
-              <option value="jcb">JCB</option>
-            </select>
+            <span>Tamanho da Senha (Máx.: 32): </span>
+            <input
+              type="number"
+              step="1"
+              defaultValue={tamanho}
+              onChange={(e) => {
+                setTamanho(Number(e.target.value));
+                setDados("");
+                setJson(null);
+              }}
+              pattern="\d*"
+              min={4}
+              max={32}
+              style={{ fontSize: "1em", width: "3em", padding: "0.2em" }}
+            />
           </label>
           <label>
-            <span>Gerar quantos Cartões? (Máx.: 100) </span>
+            <input
+              type="checkbox"
+              checked={maiusculas}
+              onClick={() => setMaiusculas(!maiusculas)}
+            />
+            <span>Incluir Letras Maiúsculas</span>
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              checked={minusculas}
+              onClick={() => setMinusculas(!minusculas)}
+            />
+            <span>Incluir Letras Minúsculas</span>
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              checked={numeros}
+              onClick={() => setNumeros(!numeros)}
+            />
+            <span>Incluir Números</span>
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              checked={caracteres}
+              onClick={() => setCaracteres(!caracteres)}
+            />
+            <span>
+              Incluir Caracteres Especiais
+              (!@#$%&amp;*()-+.,;?&#123;[&#125;]^&gt;&lt;:)
+            </span>
+          </label>
+          <label>
+            <span>Número de Senhas Geradas (Máx.: 100): </span>
             <input
               type="number"
               step="1"
@@ -112,7 +135,7 @@ const CartaoCred = () => {
         </div>
         {!error ? (
           <input
-            className={txtButton === "Gerar Cartão" ? "ativo" : "inativo"}
+            className={txtButton === "Gerar Senha" ? "ativo" : "inativo"}
             type="submit"
             value={txtButton}
             disabled={statusButton}
@@ -122,18 +145,14 @@ const CartaoCred = () => {
         )}
         {quantidade === 1 ? (
           <div className="forms">
-            {campo.cartoes.map((item) => (
+            {campo.senhas.map((item) => (
               <>
                 <label key={item.id} htmlFor={item.nome}>
                   {item.campo}:
                 </label>
                 <input
                   type={item.tipo}
-                  value={
-                    item.format === 1
-                      ? format[item.nome](dados[item.value])
-                      : dados[item.value]
-                  }
+                  value={dados}
                   name={item.nome}
                   disabled
                 />
@@ -146,11 +165,7 @@ const CartaoCred = () => {
                   <button
                     type="button"
                     onClick={() => {
-                      item.format === 1
-                        ? navigator.clipboard.writeText(
-                            format[item.nome](dados[item.value])
-                          )
-                        : navigator.clipboard.writeText(dados[item.value]);
+                      navigator.clipboard.writeText(dados);
                       handleCopiar(item.nome);
                     }}
                   >
@@ -166,27 +181,14 @@ const CartaoCred = () => {
             <textarea
               className="respJSON"
               name="retorno"
-              value={
-                json === null ? "" : JSON.stringify(formatarJson(json), null, 2)
-              }
+              value={json === null ? "" : JSON.stringify(json, null, 2)}
               disabled
             ></textarea>
           </div>
         )}
       </form>
-      <p style={{ color: "#525252" }}>
-        IMPORTANTE: Nosso gerador online de Cartões de Crédito tem como intenção
-        ajudar estudantes, programadores, analistas e testadores a gerar
-        documentos. Normalmente necessários parar testar seus softwares em
-        desenvolvimento.
-        <br />A má utilização dos dados aqui gerados é de total responsabilidade
-        do usuário.
-        <br />
-        Os números são gerados de forma aleatória, respeitando as regras de
-        criação de cada documento.
-      </p>
     </div>
   );
 };
 
-export default CartaoCred;
+export default Senhas;

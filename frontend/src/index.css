@@ -11,3 +11,125 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.pontuacao {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  margin-top: 1em;
+  margin-left: 1em;
+  align-self: flex-start;
+}
+
+.respJSON {
+  width: 560px;
+  min-height: 280px;
+  resize: vertical;
+  margin-bottom: 1em;
+  background-color: #eaf9ff;
+  font-size: 1.2em;
+  padding: 0.5em;
+}
+
+.pagina {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+  width: 620px;
+}
+
+.pagina h1 {
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+.pagina p {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 0;
+  text-align: left;
+  color: #222222;
+}
+
+.pagina form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #eeeeee;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+}
+
+.pagina button {
+  background-color: #a6a6a6;
+  color: #fff;
+  border: 0;
+  width: fit-content;
+  height: fit-content;
+  padding-top: 6px;
+  padding-left: 6px;
+  padding-right: 4px;
+  margin-top: 8px;
+  margin-left: 4px;
+  border-radius: 8px;
+}
+
+.pagina button:hover {
+  background-color: #525252;
+  color: #fff;
+}
+
+.ativo {
+  height: 53px;
+  width: 173.375px;
+  margin-top: 30px;
+  background-color: #008cba;
+  color: #fff;
+  border: 0;
+  border-radius: 1000px;
+  font-weight: bold;
+  font-size: 1em;
+}
+
+.ativo:hover {
+  background-color: #007095;
+  color: #fff;
+  cursor: pointer;
+}
+
+.inativo {
+  height: 53px;
+  width: 173.375px;
+  margin-top: 30px;
+  background-color: #007095;
+  color: #fff;
+  border: 0;
+  border-radius: 1000px;
+  font-weight: bold;
+  font-size: 1em;
+}
+
+.forms {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  width: fit-content;
+  margin: 30px;
+}
+
+.forms label {
+  text-align: right;
+  margin-top: 12px;
+  margin-right: 4px;
+  font-weight: bold;
+}
+
+.forms input {
+  height: 37px;
+  width: 400px;
+  background-color: #e7ffe9;
+  margin-bottom: 4px;
+  font-size: 1em;
+  padding-left: 10px;
+}

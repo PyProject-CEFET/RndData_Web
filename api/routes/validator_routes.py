@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from ..services.data_validator import * 
+from api.services.data_validator import *
 
 validator_bp = Blueprint('validator', __name__)
 
@@ -23,11 +23,21 @@ def validator_data():
             return validar_cnpj(valor)
         elif tipo == 'credit_card':
             return validar_cartao(valor)
+        elif tipo == 'renavam':
+            return validar_renavam(valor)
+        elif tipo == 'pis':
+            return validar_pis(valor)
+        elif tipo == 'titulo_eleitoral':
+            return validar_titulo_eleitoral(valor)
+        elif tipo == 'rg':
+            return validar_rg(valor)
         else:
             return None
 
-    if data_type not in ['cpf', 'cnpj', 'credit_card']:
-        return jsonify({'error': 'Tipo de dado inválido. Use cpf, cnpj ou credit_card.'}), 400
+    tipos_validos = ['cpf', 'cnpj', 'credit_card', 'renavam', 'pis', 'titulo_eleitoral', 'rg']
+
+    if data_type not in tipos_validos:
+        return jsonify({'error': f'Tipo de dado inválido. Use um dos seguintes: {", ".join(tipos_validos)}'}), 400
 
     resultado = validar(data_type, value)
     return jsonify({'valido': resultado})
