@@ -1,14 +1,13 @@
 import { useState } from "react";
 
-const NumExtenso = () => {
+const MaiMin = () => {
   const [txtButton, setTxtButton] = useState("Converter");
   const [statusButton, setStatusButton] = useState(false);
   const [error, setError] = useState(null);
-  const [unidade, setUnidade] = useState("monetaria");
-  const [tipo, setTipo] = useState("minuscula");
+  const [tipo, setTipo] = useState("maiuscula");
   const [valor, setValor] = useState("");
   const [resultado, setResultado] = useState("");
-  const url = "http://localhost:5000/text/number-to-words";
+  const url = "http://localhost:5000/text/case";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,10 +19,10 @@ const NumExtenso = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          value: Number(valor),
-          type: unidade === "monetaria" ? "monetario" : "numero",
-          case: tipo === "maiuscula" ? "maiusculo" : tipo,
-          currency: "real",
+          text: valor,
+          type: tipo,
+          ignore_shorter_than: 0,
+          ignore_words: [],
         }),
       });
       const json = await res.json();
@@ -37,12 +36,11 @@ const NumExtenso = () => {
 
   return (
     <div className="pagina">
-      <h1>Número por Extenso Online</h1>
+      <h1>Converter Maiúsculas e Minúsculas</h1>
       <p>
-        Ferramenta para escrever números por extenso.
+        Transformar textos para maiúsculas ou para minúsculas?
         <br />
-        Digite o número ou o valor em reais e convertemos automaticamente para
-        por extenso.
+        Basta usar nossa ferramenta.
       </p>
       <form onSubmit={handleSubmit}>
         <div className="pontuacao">
@@ -53,48 +51,46 @@ const NumExtenso = () => {
               gap: "0.2em",
             }}
           >
-            <span style={{ gridColumn: "1 / span 2" }}>1. Qual a unidade?</span>
-            <input
-              type="radio"
-              name="unidade"
-              onClick={() => setUnidade("monetaria")}
-              defaultChecked
-            />
-            <span>Monetária (Reais)</span>
-            <input
-              type="radio"
-              name="unidade"
-              onClick={() => setUnidade("numerica")}
-            />
-            <span>Numérica (Número Simples)</span>
-          </label>
-          <label
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1.5em auto",
-              gap: "0.2em",
-            }}
-          >
-            <span style={{ gridColumn: "1 / span 2" }}>2. Tipo de Letra?</span>
-            <input
-              type="radio"
-              name="tipo"
-              onClick={() => setTipo("minuscula")}
-              defaultChecked
-            />
-            <span>minúsculas (Reais)</span>
+            <span style={{ gridColumn: "1 / span 2" }}>
+              Escolha o tipo de conversão:
+            </span>
             <input
               type="radio"
               name="tipo"
               onClick={() => setTipo("maiuscula")}
+              defaultChecked
             />
-            <span>MAIÚSCULAS</span>
+            <span>MAIÚSCULO</span>
             <input
               type="radio"
               name="tipo"
-              onClick={() => setTipo("primeira")}
+              onClick={() => setTipo("minuscula")}
             />
-            <span>Primeira Maiúscula</span>
+            <span>minúsculo</span>
+            <input
+              type="radio"
+              name="tipo"
+              onClick={() => setTipo("inverter")}
+            />
+            <span>Inverter Texto</span>
+            <input
+              type="radio"
+              name="tipo"
+              onClick={() => setTipo("alternado")}
+            />
+            <span>AlTeRnAdO</span>
+            <input
+              type="radio"
+              name="tipo"
+              onClick={() => setTipo("primeira_palavra")}
+            />
+            <span>Primeira palavra frase</span>
+            <input
+              type="radio"
+              name="tipo"
+              onClick={() => setTipo("primeira_letra_palavra")}
+            />
+            <span>Primeira Letra Palavra</span>
           </label>
         </div>
         {!error ? (
@@ -116,19 +112,27 @@ const NumExtenso = () => {
             alignItems: "center",
           }}
         >
-          <span>Digite o número:</span>
-          <input
-            type="text"
-            name="value"
+          <span>Digite o texto:</span>
+          <textarea
+            name="texto"
+            id="texto"
+            rows={6}
+            cols={62}
+            autoFocus
             value={valor}
             onChange={(e) => setValor(e.target.value)}
+            style={{
+              resize: "none",
+              fontSize: "1.2em",
+              backgroundColor: "#E7FFE9",
+            }}
           />
-          <span>Resposta por extenso:</span>
+          <span>Resultado:</span>
           <textarea
             name="resultado"
             id="resultado"
-            rows={4}
-            cols={44}
+            rows={6}
+            cols={62}
             value={resultado}
             disabled
             style={{
@@ -143,4 +147,4 @@ const NumExtenso = () => {
   );
 };
 
-export default NumExtenso;
+export default MaiMin;

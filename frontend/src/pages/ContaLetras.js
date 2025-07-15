@@ -9,7 +9,7 @@ const ContaLetras = () => {
   const [vogais, setVogais] = useState(0);
   const [numeros, setNumeros] = useState(0);
   const [texto, setTexto] = useState("");
-  const [txtButton, setTxtButton] = useState("Calcular");
+  const [txtButton, setTxtButton] = useState("Contar");
   const [statusButton, setStatusButton] = useState(false);
   const [error, setError] = useState(null);
   const url = "http://localhost:5000/text/stats";
@@ -36,7 +36,7 @@ const ContaLetras = () => {
       console.log(error.message);
       setError("Falha! Recarregue a página.");
     }
-    setTxtButton("Calcular");
+    setTxtButton("Contar");
     setStatusButton(false);
   };
 
@@ -52,7 +52,7 @@ const ContaLetras = () => {
       <form onSubmit={handleSubmit}>
         {!error ? (
           <input
-            className={txtButton === "Calcular" ? "ativo" : "inativo"}
+            className={txtButton === "Contar" ? "ativo" : "inativo"}
             type="submit"
             value={txtButton}
             disabled={statusButton}

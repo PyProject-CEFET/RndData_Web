@@ -32,7 +32,10 @@ import ValidaRENAVAM from "./pages/ValidaRENAVAM";
 import ValidaRG from "./pages/ValidaRG";
 import ValidaTitulo from "./pages/ValidaTitulo";
 import ContaLetras from "./pages/ContaLetras";
+import MaiMin from "./pages/MaiMin";
 import NumExtenso from "./pages/NumExtenso";
+import OrdemAlfabetica from "./pages/OrdemAlfabetica";
+import RemoverAcento from "./pages/RemoverAcento";
 
 // Componentes
 import Header from "./components/Header";
@@ -95,8 +98,20 @@ function App() {
             <Route path="/meu_ip" element={<Ip />} />
             <Route path="/meu_navegador" element={<Navegador />} />
             <Route path="/meu_sistema_operacional" element={<Sistema />} />
+            <Route
+              path="/colocar_em_ordem_alfabetica"
+              element={<OrdemAlfabetica />}
+            />
             <Route path="/analisar_textos" element={<ContaLetras />} />
+            <Route
+              path="/converter_maiusculas_minusculas"
+              element={<MaiMin />}
+            />
             <Route path="/numero_por_extenso" element={<NumExtenso />} />
+            <Route
+              path="/remover_acentos_de_um_texto"
+              element={<RemoverAcento />}
+            />
           </Routes>
         </div>
         <Footer />

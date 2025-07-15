@@ -35,8 +35,11 @@
   ],
   "strings": [
     { "id": 1, "tipo": "FUNÇÕES STRING", "rota": "/" },
-    { "id": 2, "tipo": "Contador de Caracteres", "rota": "analisar_textos" },
-    { "id": 3, "tipo": "Número por Extenso", "rota": "numero_por_extenso" }
+    { "id": 2, "tipo": "Colocar em Ordem Alfabética", "rota": "colocar_em_ordem_alfabetica" },
+    { "id": 3, "tipo": "Contador de Caracteres", "rota": "analisar_textos" },
+    { "id": 4, "tipo": "Maiúsculas e Minúsculas", "rota": "converter_maiusculas_minusculas" },
+    { "id": 5, "tipo": "Número por Extenso", "rota": "numero_por_extenso" },
+    { "id": 6, "tipo": "Remover Acentos do Texto", "rota": "remover_acentos_de_um_texto" }
   ],
   "cards": [
     {
