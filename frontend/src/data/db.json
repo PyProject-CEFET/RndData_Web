@@ -9,9 +9,34 @@
     { "id": 3, "tipo": "Gerador de Empresas", "rota": "gerador_de_empresas" },
     { "id": 4, "tipo": "Gerador de Endereços", "rota": "gerador_de_enderecos" },
     { "id": 5, "tipo": "Gerador de Pessoas", "rota": "gerador_de_pessoas" },
-    { "id": 6, "tipo": "Gerador de RENAVAM", "rota": "gerador_de_renavam" },
-    { "id": 7, "tipo": "Gerador de Senha", "rota": "gerador_de_senha" },
-    { "id": 8, "tipo": "Sorteador de números", "rota": "sorteador" }
+    { "id": 6, "tipo": "Gerador de PIS/PASEP", "rota": "gerador_de_pis_pasep" },
+    { "id": 7, "tipo": "Gerador de Placa de Veículos", "rota": "gerador_de_placa_automoveis" },
+    { "id": 8, "tipo": "Gerador de RENAVAM", "rota": "gerador_de_renavam" },
+    { "id": 9, "tipo": "Gerador de RG", "rota": "gerador_de_rg" },
+    { "id": 10, "tipo": "Gerador de Senha", "rota": "gerador_de_senha" },
+    { "id": 11, "tipo": "Gerador de Título de Eleitor", "rota": "gerador_de_titulo_de_eleitor" },
+    { "id": 12, "tipo": "Sorteador de números", "rota": "sorteador" }
+  ],
+  "rede": [
+    { "id": 1, "tipo": "REDE E INTERNET", "rota": "/" },
+    { "id": 2, "tipo": "Meu IP", "rota": "meu_ip" },
+    { "id": 3, "tipo": "Meu Navegador", "rota": "meu_navegador" },
+    { "id": 4, "tipo": "Meu Sistema Operacional", "rota": "meu_sistema_operacional" }
+  ],
+  "validadores": [
+    { "id": 1, "tipo": "VALIDADORES", "rota": "/" },
+    { "id": 2, "tipo": "Validador de Cartão de Crédito", "rota": "validador_numero_cartao_credito" },
+    { "id": 3, "tipo": "Validador de CNPJ", "rota": "validador_cnpj" },
+    { "id": 4, "tipo": "Validador de CPF", "rota": "validador_cpf" },
+    { "id": 5, "tipo": "Validador de PIS/PASEP", "rota": "validador_pis_pasep" },
+    { "id": 6, "tipo": "Validador de RENAVAM", "rota": "validador_de_renavam" },
+    { "id": 7, "tipo": "Validador de RG", "rota": "validador_rg" },
+    { "id": 8, "tipo": "Validador de Título de Eleitor", "rota": "validador_titulo_de_eleitor" }
+  ],
+  "strings": [
+    { "id": 1, "tipo": "FUNÇÕES STRING", "rota": "/" },
+    { "id": 2, "tipo": "Contador de Caracteres", "rota": "analisar_textos" },
+    { "id": 3, "tipo": "Número por Extenso", "rota": "numero_por_extenso" }
   ],
   "cards": [
     {
@@ -95,13 +120,29 @@
     { "id": 4, "nome": "email", "value": "email", "campo": "E-Mail", "tipo": "email", "format": 0 },
     { "id": 5, "nome": "telefone", "value": "telefone", "campo": "Telefone", "tipo": "text", "format": 1 }
   ],
+  "pis": [
+    { "id": 1, "nome": "pis", "value": "pis", "campo": "PIS/PASEP", "tipo": "text" }
+  ],
+  "placas": [
+    { "id": 1, "nome": "placa", "value": "placa", "campo": "Placa", "tipo": "text" }
+  ],
   "renavam": [
     { "id": 1, "nome": "renavam", "value": "renavam", "campo": "RENAVAM", "tipo": "text" }
+  ],
+  "rg": [
+    { "id": 1, "nome": "rg", "value": "rg", "campo": "RG", "tipo": "text" }
   ],
   "senhas": [
     { "id": 1, "nome": "senha", "value": "senha", "campo": "Senha", "tipo": "text" }
   ],
+  "titulos": [
+    { "id": 1, "nome": "titulo", "value": "titulo", "campo": "Título Eleitor", "tipo": "text" }
+  ],
   "numeros": [
     { "id": 1, "nome": "numero", "value": "numero", "campo": "Número", "tipo": "text" }
+  ],
+  "ip": [
+    { "id": 1, "nome": "reverse_dns", "value": "reverse_dns", "campo": "Máquina", "tipo": "text" },
+    { "id": 2, "nome": "ip", "value": "ip", "campo": "O meu endereço IP neste momento é", "tipo": "text" }
   ]
 }

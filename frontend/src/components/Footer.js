@@ -15,12 +15,6 @@ const Footer = () => {
       <span className={styles.frase}>
         {'# {" Facilitando a vida dos programadores ";}'}
       </span>
-      <div className={styles.links}>
-        <NavLink to="/">Fale Conosco</NavLink>
-        <NavLink to="/">Privacidade</NavLink>
-        <NavLink to="/">Termos de Uso</NavLink>
-        <NavLink to="/">Sobre</NavLink>
-      </div>
       <span className={styles.linha} />
       <p className={styles.ano}>2025</p>
     </div>

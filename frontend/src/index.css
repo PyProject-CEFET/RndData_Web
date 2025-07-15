@@ -133,3 +133,10 @@ code {
   font-size: 1em;
   padding-left: 10px;
 }
+
+.contador {
+  background-color: #FFFFFF;
+  padding: 0.2em 0.5em;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+}
