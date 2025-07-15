@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from api.services.data_generator import *
+from services.data_generator import *
 
 generate_bp = Blueprint('generate', __name__)
 

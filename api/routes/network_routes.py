@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify
-from api.services.network_utils import *
+from services.network_utils import *
 
 network_bp = Blueprint('network', __name__)
 

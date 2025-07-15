@@ -36,7 +36,8 @@
   "strings": [
     { "id": 1, "tipo": "FUNÇÕES STRING", "rota": "/" },
     { "id": 2, "tipo": "Contador de Caracteres", "rota": "analisar_textos" },
-    { "id": 3, "tipo": "Número por Extenso", "rota": "numero_por_extenso" }
+    { "id": 3, "tipo": "Número por Extenso", "rota": "numero_por_extenso" },
+    { "id": 4, "tipo": "Removedor de Acentos", "rota": "removedor_acentos" }
   ],
   "cards": [
     {

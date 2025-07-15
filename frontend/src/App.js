@@ -33,6 +33,7 @@ import ValidaRG from "./pages/ValidaRG";
 import ValidaTitulo from "./pages/ValidaTitulo";
 import ContaLetras from "./pages/ContaLetras";
 import NumExtenso from "./pages/NumExtenso";
+import RemoverAcento from "./pages/RemoverAcento";
 
 // Componentes
 import Header from "./components/Header";
@@ -97,6 +98,8 @@ function App() {
             <Route path="/meu_sistema_operacional" element={<Sistema />} />
             <Route path="/analisar_textos" element={<ContaLetras />} />
             <Route path="/numero_por_extenso" element={<NumExtenso />} />
+            <Route path="/removedor_acentos" element={<RemoverAcento />} />
+
           </Routes>
         </div>
         <Footer />

@@ -17,7 +17,7 @@ z = zipfile.ZipFile(ZIP_PATH, 'r')
 nomes_arquivos = z.namelist()
 
 def gerar_endereco(estado=None):
-    for _ in range(1000):
+    for _ in range(10000):
         nome_arquivo = random.choice(nomes_arquivos)
         try:
             with z.open(nome_arquivo) as f:

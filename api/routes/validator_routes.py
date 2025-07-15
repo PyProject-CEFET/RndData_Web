@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from api.services.data_validator import *
+from services.data_validator import *
 
 validator_bp = Blueprint('validator', __name__)
 

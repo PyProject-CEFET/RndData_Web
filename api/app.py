@@ -1,11 +1,11 @@
 from flask import Flask
-from api.routes.generate_routes import generate_bp
+from routes.generate_routes import generate_bp
 
-from api.routes.validator_routes import validator_bp
+from routes.validator_routes import validator_bp
 
-from api.routes.text_routes import text_bp
+from routes.text_routes import text_bp
 
-from api.routes.network_routes import network_bp
+from routes.network_routes import network_bp
 
 from flask_cors import CORS
 

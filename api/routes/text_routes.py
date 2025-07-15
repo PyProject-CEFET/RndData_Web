@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from api.services.text_utils import *
+from services.text_utils import *
 
 text_bp = Blueprint('text', __name__)
 
